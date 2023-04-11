@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App(){
   const [input, setInput] = useState('');
@@ -6,8 +6,23 @@ function App(){
     'Pagar a conta de luz',
     'Estudar React JS'
   ]);
+  
+  useEffect( ()=>{
+     const tarefasStorage = localStorage.getItem('@tarefa');
+
+     if(tarefasStorage){
+      setTarefas(JSON.parse(tarefasStorage))
+     }
+
+  },[]);
 
 
+  useEffect( ()=>{
+
+     localStorage.setItem('@tarefa',JSON.stringify(tarefas))
+  },[tarefas]
+
+  );
 
   function handleRegister(e){
     e.preventDefault();
@@ -45,32 +60,4 @@ function App(){
 
 export default App;
 
-
-
-// import Nome from './components/Nome'
-// import { useState } from 'react';
-
-
-// function App() {
-//    const [aluno, setAluno] = useState('Sujeito Programador')
-  
-//    function handleChangeName(nome){
-//     setAluno(nome)
-//    }
-
-//    return(
-//      <div>
-//         <h1>Componente App</h1><br />
-//         <h2> Olá {aluno} </h2>
-//         <button onClick={ () => handleChangeName('Lucas Oliveira') }>
-//           Mudar Nome
-//         </button>
-//         {/* <Nome aluno="Lucas" idade={30} /> */}
-//         <br/>
-//         <br/>
-//      </div>
-//    );
-// }
-
-// export default App;
-
+ 
